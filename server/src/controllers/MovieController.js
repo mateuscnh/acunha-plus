@@ -1,12 +1,11 @@
 const knex = require("../database");
-const MOVIES_PER_PAGE = 10;
 module.exports = {
   async index(req, res, next) {
     try {
-      const { page = "1" } = req.query;
+      const { page = "1", movies_per_page = "10" } = req.query;
       const results = await knex("movies")
-        .limit(MOVIES_PER_PAGE)
-        .offset((Number(page) - 1) * 5);
+        .limit(movies_per_page)
+        .offset((Number(page) - 1) * movies_per_page);
       const [count] = await knex("movies").count();
       return res.json({ page, total: Number(count["count"]), movies: results });
     } catch (error) {
@@ -32,7 +31,7 @@ module.exports = {
         poster_path,
         release_date,
         vote_average,
-        genre_ids,
+        genre_ids: JSON.stringify(genre_ids),
       });
       return res.status(201).send();
     } catch (error) {

@@ -6,9 +6,9 @@ const URL = `${process.env.BASE_URL}/discover/movie?sort_by=popularity.desc&lang
 const REQUESTS = {
   one: axios.get(URL),
   two: axios.get(`${URL}&page=2`),
-  three: axios.get(`${URL}&page=2`),
-  four: axios.get(`${URL}&page=2`),
-  five: axios.get(`${URL}&page=2`),
+  three: axios.get(`${URL}&page=3`),
+  four: axios.get(`${URL}&page=4`),
+  five: axios.get(`${URL}&page=5`),
 };
 
 exports.getInitialMovies = async () => {
@@ -39,12 +39,11 @@ exports.getInitialMovies = async () => {
             poster_path,
             release_date,
             vote_average,
-            genre_ids,
+            genre_ids: JSON.stringify(genre_ids),
           })
         )
       );
     });
-    console.log(allResults);
     return allResults;
   } catch (err) {
     return err;
