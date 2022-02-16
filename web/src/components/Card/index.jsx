@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Container } from "./styles";
+import * as Styled from "./styles";
 
 const Card = ({ children, ...cardProps }) => (
-  <Container {...cardProps}>{children}</Container>
+  <Styled.Container {...cardProps}>{children}</Styled.Container>
 );
 
 export default Card;

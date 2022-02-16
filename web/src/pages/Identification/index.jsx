@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
-import Button from "../../components/Button";
-import Card from "../../components/Card";
+import Button from "@components/Button";
+import Card from "@components/Card";
 
-import Input from "../../components/Input";
-import Logo from "../../components/Logo";
-import api from "../../services/api";
+import Input from "@components/Input";
+import Logo from "@components/Logo";
+import api from "@services/api";
 
 import * as Styled from "./styles";
 
@@ -41,9 +41,15 @@ const Identification = () => {
               labelName="Nome"
               style={{ width: 100 }}
               value={name}
-              onChange={({ target: { value } }) => setName(value)}
+              onChange={setName}
             />
-            <Button disabled={!name || isLoading} onClick={handleNewUser}>
+            <Button
+              type="primary"
+              size="large"
+              disabled={!name || isLoading}
+              loading={isLoading}
+              onClick={handleNewUser}
+            >
               Continuar
             </Button>
           </Card>
