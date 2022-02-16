@@ -5,7 +5,9 @@ export default createGlobalStyle`
         margin: 0;
         padding: 0;
         outline: none;
-        box-sizing: border-box;       
+        box-sizing: border-box;  
+        font-family: 'Baloo Bhai 2', cursive;
+        font-family: 'Montserrat', sans-serif;     
     }
     html, body{
         height: 100%;
@@ -24,5 +26,16 @@ export default createGlobalStyle`
     }
     ::-webkit-scrollbar-track-piece{
         background: ${(props) => props.theme.colors.black_light};
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        max-width: 1300px;
+    }
+
+    p {
+        color: ${(props) => props.theme.colors.white};
     }
 `;

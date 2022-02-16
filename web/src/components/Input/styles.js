@@ -1,46 +1,47 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   position: relative;
-
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 8px;
 `;
 
 export const Label = styled.label`
-  font-size: 18px;
   position: absolute;
-  top: 10px;
+  top: 14px;
   left: 16px;
   pointer-events: none;
-  transition: 0.2s;
+  transition: all 0.2s;
 `;
 
 export const StyledInput = styled.input`
-  padding: 18px;
-  width: 100%;
+  padding: 16px;
+  min-width: 100%;
   height: 50px;
-  border: 2px solid ${(props) => props.theme.colors.secondary};
+  border: 1px solid ${(props) => props.theme.colors.black};
 
-  border-radius: 6px;
-  color: ${(props) => props.theme.colors.primary};
-  font-size: 18px;
-  transition: 0.2s;
+  border-radius: 4px;
+  color: ${(props) => props.theme.colors.primary_light};
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: ${(props) => props.theme.colors.black_dark};
   :focus {
-    border: 2px solid ${(props) => props.theme.colors.secondary};
-    border-top: none;
+    border-top: transparent;
+    border-color: ${(props) => props.theme.colors.primary};
   }
   :focus + ${Label} {
-    transform: scale(0.8) translate(-10px, -44px);
+    transform: scale(0.9) translate(-12px, -36px);
   }
-  ${({ hasValue }) =>
-    hasValue &&
+  ${({ value }) =>
+    value &&
     css`
       & {
-        border-top: none;
+        border-top: transparent;
+        border-color: ${(props) => props.theme.colors.primary};
       }
       & + ${Label} {
-        transform: scale(0.8) translate(-10px, -44px);
+        transform: scale(0.9) translate(-12px, -36px);
       }
     `}
 `;
