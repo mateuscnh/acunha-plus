@@ -1,7 +1,7 @@
 require("dotenv/config");
 const axios = require("axios");
 
-const URL = `${process.env.BASE_URL}/discover/movie?sort_by=popularity.desc&language=${process.env.LANG}&api_key=${process.env.API_KEY}`;
+const URL = `${process.env.BASE_URL}/discover/movie?sort_by=popularity.desc&language=pt-BR&api_key=${process.env.API_KEY}`;
 
 const REQUESTS = {
   one: axios.get(URL),
@@ -39,6 +39,7 @@ exports.getInitialMovies = async () => {
             poster_path,
             release_date,
             vote_average,
+            main_genre: genre_ids[0],
             genre_ids: JSON.stringify(genre_ids),
           })
         )

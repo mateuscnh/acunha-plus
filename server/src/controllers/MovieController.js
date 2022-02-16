@@ -2,12 +2,17 @@ const knex = require("../database");
 module.exports = {
   async index(req, res, next) {
     try {
-      const { page = "1", movies_per_page = "10" } = req.query;
-      const results = await knex("movies")
-        .limit(movies_per_page)
-        .offset((Number(page) - 1) * movies_per_page);
-      const [count] = await knex("movies").count();
-      return res.json({ page, total: Number(count["count"]), movies: results });
+      const movies = await knex("movies");
+      const genres = await knex("genres");
+
+      return res.json(
+        genres.map((genre) => {
+          return {
+            ...genre,
+            movies: movies.filter((movie) => movie.main_genre === genre.id),
+          };
+        })
+      );
     } catch (error) {
       next(error);
     }

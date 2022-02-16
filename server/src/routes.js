@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const UserController = require("./controllers/UserController");
 const MovieController = require("./controllers/MovieController");
+const GenresController = require("./controllers/GenresController");
 const InteractionController = require("./controllers/InteractionController");
 
 routes
@@ -16,6 +17,8 @@ routes
   .post("/movies", MovieController.create)
   .put("/movies/:id", MovieController.update)
   .delete("/movies/:id", MovieController.delete)
+  // genres
+  .get("/genres", GenresController.index)
   // interactions
   .get("/interactions", InteractionController.index)
   .post("/interactions", InteractionController.create)

@@ -9,6 +9,19 @@ module.exports = {
       next(error);
     }
   },
+  async indexUsers(req, res, next) {
+    try {
+      const { user_id } = req.params;
+      const results = await knex("interactions as i")
+        .join("movies as m", "m.id", "i.movie_id")
+        .where("i.user_id", user_id)
+        .options({ nestTables: true });
+
+      return res.json(results);
+    } catch (error) {
+      next(error);
+    }
+  },
   async create(req, res, next) {
     try {
       const { liked, rate, user_id, movie_id } = req.body;

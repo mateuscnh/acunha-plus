@@ -7,6 +7,7 @@ exports.up = (knex) =>
     table.text("poster_path");
     table.text("release_date");
     table.float("vote_average");
+    table.integer("main_genre");
     table.text("genre_ids");
   });
 
