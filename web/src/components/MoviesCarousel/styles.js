@@ -6,6 +6,12 @@ export const Container = styled.div`
     width: auto;
     height: 200px;
 
+    &:first-child {
+      margin-left: 60px;
+    }
+    &:last-child {
+      margin-right: 60px;
+    }
     @media (min-width: 400px) {
       height: 280px;
     }

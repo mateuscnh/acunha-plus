@@ -9,6 +9,11 @@ const REQUESTS = {
   three: axios.get(`${URL}&page=3`),
   four: axios.get(`${URL}&page=4`),
   five: axios.get(`${URL}&page=5`),
+  six: axios.get(`${URL}&page=6`),
+  seven: axios.get(`${URL}&page=7`),
+  eight: axios.get(`${URL}&page=8`),
+  nine: axios.get(`${URL}&page=9`),
+  ten: axios.get(`${URL}&page=10`),
 };
 
 exports.getInitialMovies = async () => {
@@ -19,6 +24,11 @@ exports.getInitialMovies = async () => {
       REQUESTS.three,
       REQUESTS.four,
       REQUESTS.five,
+      REQUESTS.six,
+      REQUESTS.seven,
+      REQUESTS.eight,
+      REQUESTS.nine,
+      REQUESTS.ten,
     ]);
     const allResults = [];
     responses.forEach((res) => {

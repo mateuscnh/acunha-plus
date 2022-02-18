@@ -24,6 +24,24 @@ const MoviesCarousel = ({ data }) => {
     changeDisplay(isInitialMovie ? "none" : "flex");
   }, []);
 
+  const handleRightArrowVisibility = useCallback((swiper) => {
+    const totalMovies = swiper.slides.length;
+    const movieWidth = swiper.height / 1.4;
+    const carouselWidth = swiper.width;
+
+    const visibleMovies = Number((carouselWidth / movieWidth).toFixed());
+    const isVisibleMoviesLessThanTotal = totalMovies <= visibleMovies;
+    const isVisibleAllMovies =
+      swiper.activeIndex + 1 + visibleMovies > totalMovies;
+
+    const changeDisplay = (display) => {
+      swiper.params.navigation.nextEl.style.display = display;
+    };
+    changeDisplay(
+      isVisibleMoviesLessThanTotal || isVisibleAllMovies ? "none" : "flex"
+    );
+  }, []);
+
   const swiperSettings = useMemo(
     () => ({
       modules: [Navigation, A11y],
@@ -31,20 +49,22 @@ const MoviesCarousel = ({ data }) => {
       onInit: (swiper) => {
         swiper.params.navigation.prevEl = elNavLeft.current;
         swiper.params.navigation.nextEl = elNavRight.current;
-        // Default spacing on first card
-        swiper.slides[0].style.marginLeft = "60px";
         handleLeftArrowVisibility(swiper);
+        handleRightArrowVisibility(swiper);
         swiper.navigation.init();
         swiper.navigation.update();
       },
       preloadImages: true,
-      onSlideChange: (swiper) => handleLeftArrowVisibility(swiper),
+      onSlideChange: (swiper) => {
+        handleLeftArrowVisibility(swiper);
+        handleRightArrowVisibility(swiper);
+      },
       slidesPerView: "auto",
       slidesPerGroupAuto: true,
       speed: 400,
       spaceBetween: 16,
     }),
-    [handleLeftArrowVisibility]
+    [handleLeftArrowVisibility, handleRightArrowVisibility]
   );
 
   return (

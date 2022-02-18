@@ -23,12 +23,14 @@ const Home = () => {
 
   return (
     <Styled.Container>
-      {data?.map(
-        ({ id, name, movies }) =>
-          movies.length > 0 && (
-            <MoviesCarousel key={id} data={{ name, movies }} />
-          )
-      )}
+      {data
+        ?.filter((genre) => genre.movies?.length > 6)
+        .map(
+          ({ id, name, movies }) =>
+            movies.length > 0 && (
+              <MoviesCarousel key={id} data={{ name, movies }} />
+            )
+        )}
     </Styled.Container>
   );
 };

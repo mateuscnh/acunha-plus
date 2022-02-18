@@ -15,6 +15,16 @@ export const Label = styled.label`
   transition: all 0.2s;
 `;
 
+const inputWithValueCSS = css`
+  & {
+    border-top: transparent;
+    border-color: ${(props) => props.theme.colors.primary};
+  }
+  & + ${Label} {
+    transform: scale(0.9) translate(-12px, -36px);
+  }
+`;
+
 export const StyledInput = styled.input`
   padding: 16px;
   min-width: 100%;
@@ -33,15 +43,5 @@ export const StyledInput = styled.input`
   :focus + ${Label} {
     transform: scale(0.9) translate(-12px, -36px);
   }
-  ${({ value }) =>
-    value &&
-    css`
-      & {
-        border-top: transparent;
-        border-color: ${(props) => props.theme.colors.primary};
-      }
-      & + ${Label} {
-        transform: scale(0.9) translate(-12px, -36px);
-      }
-    `}
+  ${({ value }) => value && inputWithValueCSS}
 `;
