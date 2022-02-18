@@ -11,8 +11,7 @@ export default createGlobalStyle`
     }
     html, body{
         height: 100%;
-        background: ${(props) => props.theme.colors.black_dark} no-repeat;
-        background-attachment: fixed;
+        background: ${(props) => props.theme.colors.black_dark};
         scroll-behavior: smooth;
     }
     ::-webkit-scrollbar {
@@ -36,6 +35,9 @@ export default createGlobalStyle`
     }
 
     p {
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 1.2rem;
         color: ${(props) => props.theme.colors.white};
     }
 `;

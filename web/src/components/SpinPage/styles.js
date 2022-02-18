@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-import { Spin as AntSpin } from "antd";
-
-export const Container = styled.div``;
-
-export const Spin = styled(AntSpin)``;
+export const Container = styled.div`
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+`;

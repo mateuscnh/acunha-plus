@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "@components/Button";
 import Card from "@components/Card";
-
 import Input from "@components/Input";
 import Logo from "@components/Logo";
 import api from "@services/api";
@@ -12,15 +13,18 @@ const Identification = () => {
   const [name, setName] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleNewUser = useCallback(async () => {
     try {
       setIsLoading(true);
       await api.post("/users", { name });
+      navigate(`/home`);
     } catch {
       console.log("Erro");
     }
     setIsLoading(false);
-  }, [name]);
+  }, [name, navigate]);
 
   return (
     <Styled.Background>
