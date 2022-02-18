@@ -3,7 +3,7 @@ import { Navigation, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import * as Styled from "./styles";
+import * as S from "./styles";
 
 import MovieCard from "../MovieCard";
 
@@ -68,10 +68,10 @@ const MoviesCarousel = ({ data }) => {
   );
 
   return (
-    <Styled.Container>
-      <Styled.SectionHeader>
+    <S.Container>
+      <S.SectionHeader>
         <p>{data?.name}</p>
-      </Styled.SectionHeader>
+      </S.SectionHeader>
 
       <Swiper {...swiperSettings}>
         {data?.movies?.map((movie) => (
@@ -82,7 +82,7 @@ const MoviesCarousel = ({ data }) => {
         <Chevron ref={elNavLeft} direction="left" />
         <Chevron ref={elNavRight} direction="right" />
       </Swiper>
-    </Styled.Container>
+    </S.Container>
   );
 };
 

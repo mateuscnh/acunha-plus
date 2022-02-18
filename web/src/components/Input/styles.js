@@ -25,7 +25,7 @@ const inputWithValueCSS = css`
   }
 `;
 
-export const StyledInput = styled.input`
+export const Input = styled.input`
   padding: 16px;
   min-width: 100%;
   height: 50px;

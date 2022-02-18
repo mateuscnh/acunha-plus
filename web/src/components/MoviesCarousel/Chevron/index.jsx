@@ -1,12 +1,12 @@
 import React, { forwardRef } from "react";
 
-import * as Styled from "./styles.js";
+import * as S from "./styles.js";
 
 const Chevron = ({ direction, color, size = 40 }, ref) => {
   return direction === "left" ? (
-    <Styled.ChevronLeft ref={ref} style={{ fontSize: size }} />
+    <S.ChevronLeft ref={ref} style={{ fontSize: size }} />
   ) : (
-    <Styled.ChevronRight ref={ref} style={{ fontSize: size }} />
+    <S.ChevronRight ref={ref} style={{ fontSize: size }} />
   );
 };
 

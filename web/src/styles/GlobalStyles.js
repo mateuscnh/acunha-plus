@@ -34,7 +34,7 @@ export default createGlobalStyle`
         max-width: 1300px;
     }
 
-    p {
+    p, h1 {
         font-family: Montserrat;
         font-weight: 600;
         font-size: 1.2rem;

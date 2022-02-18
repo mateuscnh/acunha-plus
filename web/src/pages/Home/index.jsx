@@ -3,10 +3,11 @@ import useSwr from "@src/hooks/userSwr";
 import SpinPage from "@src/components/SpinPage";
 import MoviesCarousel from "@src/components/MoviesCarousel/index";
 
-import * as Styled from "./styles";
+import * as S from "./styles";
 
 const Home = () => {
   const [isPageFullyLoaded, setIsPageFullyLoaded] = useState(false);
+
   const { data } = useSwr("/movies");
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Home = () => {
   }
 
   return (
-    <Styled.Container>
+    <S.Container>
       {data
         ?.filter((genre) => genre.movies?.length > 6)
         .map(
@@ -31,7 +32,7 @@ const Home = () => {
               <MoviesCarousel key={id} data={{ name, movies }} />
             )
         )}
-    </Styled.Container>
+    </S.Container>
   );
 };
 

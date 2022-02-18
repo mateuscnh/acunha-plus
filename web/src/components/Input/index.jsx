@@ -1,15 +1,12 @@
 import React from "react";
 
-import { Container, StyledInput, Label } from "./styles";
+import * as S from "./styles";
 
 const Input = ({ labelName, onChange, ...props }) => (
-  <Container>
-    <StyledInput
-      onChange={({ target: { value } }) => onChange(value)}
-      {...props}
-    />
-    <Label>{labelName}</Label>
-  </Container>
+  <S.Container>
+    <S.Input onChange={({ target: { value } }) => onChange(value)} {...props} />
+    <S.Label>{labelName}</S.Label>
+  </S.Container>
 );
 
 export default Input;

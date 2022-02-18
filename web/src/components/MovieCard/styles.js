@@ -10,6 +10,8 @@ export const Image = styled.img`
   border-radius: 6px;
   border: 1px solid transparent;
   box-shadow: -2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-color: ${({ isModalVisible, theme }) =>
+    isModalVisible && theme.colors.primary};
 
   :hover {
     border-color: ${({ theme }) => theme.colors.primary};

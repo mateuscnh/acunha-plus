@@ -7,7 +7,7 @@ import Input from "@components/Input";
 import Logo from "@components/Logo";
 import api from "@services/api";
 
-import * as Styled from "./styles";
+import * as S from "./styles";
 
 const Identification = () => {
   const [name, setName] = useState();
@@ -27,9 +27,9 @@ const Identification = () => {
   }, [name, navigate]);
 
   return (
-    <Styled.Background>
-      <Styled.Container className="container">
-        <Styled.Content>
+    <S.Background>
+      <S.Container className="container">
+        <S.Content>
           <Logo height="5rem" />
           <p>
             Você participará de uma pesquisa, para o TCC, relacionado a sistemas
@@ -40,7 +40,7 @@ const Identification = () => {
             satisfatória.
           </p>
           <Card style={{ maxWidth: 480, margin: "0 auto" }}>
-            <Styled.Title>Sobre você</Styled.Title>
+            <S.Title>Sobre você</S.Title>
             <Input
               labelName="Nome"
               style={{ width: 100 }}
@@ -57,9 +57,9 @@ const Identification = () => {
               Continuar
             </Button>
           </Card>
-        </Styled.Content>
-      </Styled.Container>
-    </Styled.Background>
+        </S.Content>
+      </S.Container>
+    </S.Background>
   );
 };
 
