@@ -17,6 +17,15 @@ module.exports = {
       next(error);
     }
   },
+  async indexById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const movie = await knex("movies").select().where({ id });
+      return res.json(movie?.[0]);
+    } catch (error) {
+      next(error);
+    }
+  },
   async create(req, res, next) {
     try {
       const {

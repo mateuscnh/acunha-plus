@@ -14,6 +14,7 @@ routes
   .delete("/users/:id", UserController.delete)
   // movies
   .get("/movies", MovieController.index)
+  .get("/movies/:id", MovieController.indexById)
   .post("/movies", MovieController.create)
   .put("/movies/:id", MovieController.update)
   .delete("/movies/:id", MovieController.delete)
