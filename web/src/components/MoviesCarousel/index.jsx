@@ -26,7 +26,7 @@ const MoviesCarousel = ({ data }) => {
 
   const handleRightArrowVisibility = useCallback((swiper) => {
     const totalMovies = swiper.slides.length;
-    const movieWidth = swiper.height / 1.4;
+    const movieWidth = swiper.height / 1.3;
     const carouselWidth = swiper.width;
 
     const visibleMovies = Number((carouselWidth / movieWidth).toFixed());
@@ -62,7 +62,7 @@ const MoviesCarousel = ({ data }) => {
       slidesPerView: "auto",
       slidesPerGroupAuto: true,
       speed: 400,
-      spaceBetween: 16,
+      spaceBetween: 24,
     }),
     [handleLeftArrowVisibility, handleRightArrowVisibility]
   );

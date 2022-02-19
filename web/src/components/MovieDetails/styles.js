@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { Modal as AntModal } from "antd";
 
 export const Modal = styled(AntModal)`
-  align-items: flex-start;
-  > span {
-    display: none;
-  }
   .ant-modal-content {
+    > button {
+      display: none;
+    }
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.6);
     border-radius: 6px;
     overflow: hidden;
@@ -29,7 +28,6 @@ export const Mask = styled.div`
   top: 0;
   width: 100%;
   height: 320px;
-  background: red;
   background: linear-gradient(
     360deg,
     #0f0f0c 11.05%,
@@ -58,12 +56,43 @@ export const Content = styled.div`
   }
 `;
 
+export const SubTitle = styled.div`
+  display: flex;
+  align-items: center;
+  opacity: 0.4;
+
+  > div {
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 1.1rem;
+      margin-top: 0;
+      padding: 0;
+    }
+
+    svg {
+      margin-right: 8px;
+    }
+
+    .star {
+      transform: scale(1.1);
+    }
+  }
+`;
+
 export const Footer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-between;
   p {
     font-size: 0.8rem;
-    width: 42%;
+    width: auto;
+  }
+  .swiper-slide {
+    width: 100%;
+    height: 100%;
+    margin: 0;
   }
 `;

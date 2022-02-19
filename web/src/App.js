@@ -6,14 +6,17 @@ import GlobalStyles from "./styles/GlobalStyles";
 import theme from "./styles/Theme";
 import Routes from "./routes";
 import SpinPage from "./components/SpinPage/index";
+import { SessionProvider } from "./store/SessionProvider";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Suspense fallback={<SpinPage />}>
-        <Routes />
-      </Suspense>
+      <SessionProvider>
+        <Suspense fallback={<SpinPage />}>
+          <Routes />
+        </Suspense>
+      </SessionProvider>
     </ThemeProvider>
   );
 }

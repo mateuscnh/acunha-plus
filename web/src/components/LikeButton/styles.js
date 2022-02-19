@@ -3,14 +3,7 @@ import styled, { css } from "styled-components";
 import { Button as AntButton } from "antd";
 
 export const Container = styled.div`
-  /* display: flex;
-  background: #232221;
-  border-radius: 50px;
-
-  > span {
-    display: block;
-    width: 16px;
-  } */
+  display: inline-block;
 `;
 
 export const Content = styled.div`
