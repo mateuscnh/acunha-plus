@@ -74,6 +74,7 @@ const MovieDetails = ({ isModalVisible, handleCancel, data }) => {
             liked={selectedMovieInteraction?.liked}
           />
           <RateButton
+            disabled={!!!selectedMovieInteraction?.liked}
             setRate={handleRateMovie}
             rate={selectedMovieInteraction?.rate}
           />
