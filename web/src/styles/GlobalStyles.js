@@ -11,7 +11,7 @@ export default createGlobalStyle`
     }
     html, body{
         height: 100%;
-        background: ${(props) => props.theme.colors.black_dark};
+        background: ${(props) => props.theme.colors.radial_gradient};
         scroll-behavior: smooth;
     }
     ::-webkit-scrollbar {

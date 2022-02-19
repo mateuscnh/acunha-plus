@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin: 32px 0;
   .swiper-slide {
+    margin-bottom: 32px;
     width: auto;
-    height: 200px;
+    height: 220px;
 
     &:first-child {
       margin-left: 60px;
@@ -13,7 +14,7 @@ export const Container = styled.div`
       margin-right: 60px;
     }
     @media (min-width: 400px) {
-      height: 280px;
+      height: 300px;
     }
   }
 `;

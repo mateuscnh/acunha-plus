@@ -9,11 +9,12 @@ export const Image = styled.img`
   transition: 0.2s;
   border-radius: 6px;
   border: 1px solid transparent;
-  box-shadow: -2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: ${({ theme }) => theme.colors.shadow};
   border-color: ${({ isDetailsVisible, theme }) =>
     isDetailsVisible && theme.colors.primary};
 
   :hover {
     border-color: ${({ theme }) => theme.colors.primary};
+    transform: scale(1.01) translateY(6px);
   }
 `;

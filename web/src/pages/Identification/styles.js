@@ -1,11 +1,24 @@
 import styled from "styled-components";
-import background from "../../assets/images/background-identification.jpg";
+import background from "../../assets/images/background.png";
 
 export const Background = styled.div`
+  position: relative;
   background: no-repeat center url(${background});
   background-size: cover;
 `;
+
+export const Mask = styled.div`
+  position: absolute;
+  z-index: 1;
+  background: ${({ theme }) => theme.colors.radial_gradient};
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+`;
+
 export const Container = styled.div`
+  position: relative;
+  z-index: 2;
   height: 100vh;
   text-align: center;
 `;

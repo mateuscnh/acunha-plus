@@ -4,10 +4,12 @@ import { Modal as AntModal } from "antd";
 
 export const Modal = styled(AntModal)`
   .ant-modal-content {
+    border: 1px solid ${(props) => props.theme.colors.black};
+    border-top: none;
     > button {
       display: none;
     }
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.6);
+    box-shadow: ${({ theme }) => theme.colors.shadow};
     border-radius: 6px;
     overflow: hidden;
     background: ${({ theme }) => theme.colors.black_dark};

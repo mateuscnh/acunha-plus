@@ -28,6 +28,7 @@ const Identification = () => {
 
   return (
     <S.Background>
+      <S.Mask />
       <S.Container className="container">
         <S.Content>
           <Logo height="5rem" />
