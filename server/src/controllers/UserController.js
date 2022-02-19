@@ -12,10 +12,12 @@ module.exports = {
   async create(req, res, next) {
     try {
       const { name } = req.body;
-      await knex("users").insert({
-        name,
-      });
-      return res.status(201).send();
+      const [{ id }] = await knex("users")
+        .insert({
+          name,
+        })
+        .returning("id");
+      return res.status(201).send({ id });
     } catch (error) {
       next(error);
     }

@@ -3,21 +3,24 @@ const knex = require("../database");
 module.exports = {
   async index(req, res, next) {
     try {
-      const results = await knex("interactions");
-      return res.json(results);
-    } catch (error) {
-      next(error);
-    }
-  },
-  async indexUsers(req, res, next) {
-    try {
       const { user_id } = req.params;
       const results = await knex("interactions as i")
+        .where({ user_id })
         .join("movies as m", "m.id", "i.movie_id")
-        .where("i.user_id", user_id)
-        .options({ nestTables: true });
-
-      return res.json(results);
+        .select("m.*", "m.id as movie_id", "i.liked", "i.id", "i.rate");
+      return res.json(
+        results?.map((result) => {
+          const { id, liked, rate, movie_id, ...movie } = result;
+          return {
+            id,
+            liked,
+            rate,
+            user_id,
+            movie_id,
+            data: { id: movie_id, ...movie },
+          };
+        })
+      );
     } catch (error) {
       next(error);
     }
@@ -26,13 +29,17 @@ module.exports = {
     try {
       const { liked, rate, user_id, movie_id } = req.body;
 
-      await knex("interactions").insert({
-        liked,
-        rate,
-        user_id,
-        movie_id,
+      const [{ id }] = await knex("interactions")
+        .insert({
+          liked,
+          rate,
+          user_id,
+          movie_id,
+        })
+        .returning("id");
+      return res.status(201).send({
+        id,
       });
-      return res.status(201).send();
     } catch (error) {
       next(error);
     }

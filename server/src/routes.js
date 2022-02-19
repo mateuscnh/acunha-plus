@@ -21,7 +21,7 @@ routes
   // genres
   .get("/genres", GenresController.index)
   // interactions
-  .get("/interactions", InteractionController.index)
+  .get("/interactions/:user_id", InteractionController.index)
   .post("/interactions", InteractionController.create)
   .put("/interactions/:id", InteractionController.update)
   .delete("/interactions/:id", InteractionController.delete);
