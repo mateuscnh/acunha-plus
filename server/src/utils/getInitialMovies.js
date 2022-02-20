@@ -3,33 +3,21 @@ const axios = require("axios");
 
 const URL = `${process.env.BASE_URL}/discover/movie?sort_by=popularity.desc&language=pt-BR&api_key=${process.env.API_KEY}`;
 
-const REQUESTS = {
-  one: axios.get(URL),
-  two: axios.get(`${URL}&page=2`),
-  three: axios.get(`${URL}&page=3`),
-  four: axios.get(`${URL}&page=4`),
-  five: axios.get(`${URL}&page=5`),
-  six: axios.get(`${URL}&page=6`),
-  seven: axios.get(`${URL}&page=7`),
-  eight: axios.get(`${URL}&page=8`),
-  nine: axios.get(`${URL}&page=9`),
-  ten: axios.get(`${URL}&page=10`),
+const request = (page = 1) => `${URL}&page=${page}`;
+
+const numOfMovies = 1000;
+
+const allURLS = () => {
+  const numberOfRequisitions = Number((numOfMovies / 20).toFixed());
+  const arrayWithNumberOfRequisitions = Array.from(
+    Array(numberOfRequisitions).keys()
+  );
+  return arrayWithNumberOfRequisitions?.map((num) => request(num + 1));
 };
 
 exports.getInitialMovies = async () => {
   try {
-    const responses = await axios.all([
-      REQUESTS.one,
-      REQUESTS.two,
-      REQUESTS.three,
-      REQUESTS.four,
-      REQUESTS.five,
-      REQUESTS.six,
-      REQUESTS.seven,
-      REQUESTS.eight,
-      REQUESTS.nine,
-      REQUESTS.ten,
-    ]);
+    const responses = await axios.all(allURLS().map((url) => axios.get(url)));
     const allResults = [];
     responses.forEach((res) => {
       allResults.push(

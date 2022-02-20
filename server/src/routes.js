@@ -13,8 +13,8 @@ routes
   .put("/users/:id", UserController.update)
   .delete("/users/:id", UserController.delete)
   // movies
-  .get("/movies", MovieController.index)
-  .get("/movies/:id", MovieController.indexById)
+  .get("/movies", MovieController.moviesByGenre)
+  .get("/movies/:id", MovieController.movieById)
   .post("/movies", MovieController.create)
   .put("/movies/:id", MovieController.update)
   .delete("/movies/:id", MovieController.delete)

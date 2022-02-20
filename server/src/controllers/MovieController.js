@@ -1,10 +1,9 @@
 const knex = require("../database");
 module.exports = {
-  async index(req, res, next) {
+  async moviesByGenre(req, res, next) {
     try {
       const movies = await knex("movies");
       const genres = await knex("genres");
-
       return res.json(
         genres.map((genre) => {
           return {
@@ -17,15 +16,34 @@ module.exports = {
       next(error);
     }
   },
-  async indexById(req, res, next) {
+  async movieById(req, res, next) {
     try {
       const { id } = req.params;
+      const { user_id } = req.query;
       const movie = await knex("movies").select().where({ id });
-      return res.json(movie?.[0]);
+      const [user_interactions] = await knex("interactions as i")
+        .select()
+        .where({ user_id, movie_id: id });
+
+      return res.json({
+        user_interactions,
+        ...movie?.[0],
+      });
     } catch (error) {
       next(error);
     }
   },
+  // async movieByTitle(req, res, next) {
+  //   try {
+  //     const { title } = req.query;
+  //     console.log(title);
+  //     const movie = await knex("movies").where("title", "ilike", title);
+
+  //     return res.json(movie);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // },
   async create(req, res, next) {
     try {
       const {
