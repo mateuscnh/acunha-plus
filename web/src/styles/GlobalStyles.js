@@ -40,4 +40,8 @@ export default createGlobalStyle`
         font-size: 1.2rem;
         color: ${(props) => props.theme.colors.white};
     }
+
+    .ant-tooltip-arrow-content, .ant-tooltip-inner {
+        background: ${(props) => props.theme.colors.black};
+    }
 `;

@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { SessionContext } from "@src/store/SessionProvider";
 
-const RoutePrivate = ({ component: Component, ...rest }) => {
-  const { token } = useContext(SessionContext);
+const RoutePrivate = ({ element: Element, ...rest }) => {
+  const { userLogged } = useContext(SessionContext);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        token ? (
-          <Component {...props} />
+        userLogged ? (
+          <Element {...props} />
         ) : (
-          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+          <Navigate to={{ pathname: "/", state: { from: props.location } }} />
         )
       }
     />

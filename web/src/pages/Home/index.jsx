@@ -8,18 +8,11 @@ import MovieDetails from "@src/components/MovieDetails/index";
 import { SessionContext } from "@src/store/SessionProvider";
 
 const Home = () => {
-  const {
-    selectedMovieId,
-    setSelectedMovieId,
-    isShowMovieDetails,
-    setIsShowMovieDetails,
-  } = useContext(SessionContext);
+  const { setSelectedMovieId, isShowMovieDetails, setIsShowMovieDetails } =
+    useContext(SessionContext);
   const [isPageFullyLoaded, setIsPageFullyLoaded] = useState(false);
 
   const { data } = useSwr("/movies");
-  const { data: movieDetails } = useSwr(
-    selectedMovieId ? `/movies/${selectedMovieId}` : null
-  );
 
   const handleCloseModal = useCallback(() => {
     setSelectedMovieId(undefined);
@@ -40,7 +33,11 @@ const Home = () => {
 
   return (
     <S.Container>
-      {data
+      <MoviesCarousel
+        key="most-popular-movies"
+        data={{ name: "Popular", movies: data?.mostPopularMovies }}
+      />
+      {data?.moviesByGenres
         ?.filter((genre) => genre.movies?.length > 6)
         .map(
           ({ id, name, movies }) =>
@@ -50,8 +47,6 @@ const Home = () => {
         )}
 
       <MovieDetails
-        data={movieDetails || {}}
-        loading={!movieDetails}
         isModalVisible={isShowMovieDetails}
         handleCancel={handleCloseModal}
       />

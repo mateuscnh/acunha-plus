@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@components/Button";
@@ -8,23 +8,27 @@ import Logo from "@components/Logo";
 import api from "@services/api";
 
 import * as S from "./styles";
+import { SessionContext } from "@src/store/SessionProvider";
 
 const Identification = () => {
+  const { setUserLogged } = useContext(SessionContext);
   const [name, setName] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleNewUser = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      await api.post("/users", { name });
-      navigate(`/home`);
-    } catch {
-      console.log("Erro");
-    }
+    setIsLoading(true);
+    const { data } = await api.post("/users", { name });
+    setUserLogged({
+      id: data.id,
+      name,
+    });
+    sessionStorage.setItem("acunha_plus_user_id", data.id);
+    sessionStorage.setItem("acunha_plus_user_name", name);
+    navigate("/");
     setIsLoading(false);
-  }, [name, navigate]);
+  }, [name, navigate, setUserLogged]);
 
   return (
     <S.Background>
@@ -47,6 +51,12 @@ const Identification = () => {
               style={{ width: 100 }}
               value={name}
               onChange={setName}
+              onKeyPress={({ charCode }) => {
+                const isEnter = charCode === 13;
+                if (isEnter) {
+                  handleNewUser();
+                }
+              }}
             />
             <Button
               type="primary"

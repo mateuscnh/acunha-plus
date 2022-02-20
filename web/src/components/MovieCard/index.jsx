@@ -7,7 +7,6 @@ import { SessionContext } from "@src/store/SessionProvider";
 
 const IMG_BASE_URL = process.env.REACT_APP_IMG_URL;
 const MovieCard = ({ movie, ...props }) => {
-  const imgURL = `${IMG_BASE_URL}${movie?.poster_path}`;
   const { setSelectedMovieId, selectedMovieId, setIsShowMovieDetails } =
     useContext(SessionContext);
 
@@ -22,7 +21,7 @@ const MovieCard = ({ movie, ...props }) => {
         <S.Image
           alt={movie?.title}
           onClick={handleMovieClicked}
-          src={imgURL}
+          src={!!movie?.poster_path && `${IMG_BASE_URL}${movie?.poster_path}`}
           isDetailsVisible={selectedMovieId === movie?.id}
         />
       </Tooltip>

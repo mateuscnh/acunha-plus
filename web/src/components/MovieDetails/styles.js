@@ -5,7 +5,7 @@ import { Modal as AntModal } from "antd";
 export const Modal = styled(AntModal)`
   .ant-modal-content {
     border: 1px solid ${(props) => props.theme.colors.black};
-    border-top: none;
+    /* border-top: none; */
     > button {
       display: none;
     }
@@ -38,7 +38,8 @@ export const Mask = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 0 48px;
+  padding: 48px;
+  padding-bottom: 0;
   position: relative;
   top: -40px;
   z-index: 2;
@@ -63,7 +64,7 @@ export const SubTitle = styled.div`
   align-items: center;
   opacity: 0.4;
 
-  > div {
+  > span {
     margin-right: 24px;
     display: flex;
     align-items: center;
@@ -85,16 +86,9 @@ export const SubTitle = styled.div`
 `;
 
 export const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: center;
   p {
-    font-size: 0.8rem;
-    width: auto;
-  }
-  .swiper-slide {
-    width: 100%;
-    height: 100%;
+    font-size: 0.9rem;
     margin: 0;
   }
 `;
