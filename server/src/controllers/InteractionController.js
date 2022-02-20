@@ -22,7 +22,7 @@ module.exports = {
           return {
             id,
             rate,
-            user_id,
+            user_id: Number(user_id),
             movie_id,
             data: { id: movie_id, ...movie },
           };
@@ -35,6 +35,14 @@ module.exports = {
   async create(req, res, next) {
     try {
       const { rate, user_id, movie_id } = req.body;
+
+      const [movie] = await knex("movies").where({ id: movie_id });
+      const total_interactions = movie?.total_interactions + 1;
+      const rate_average = (movie?.rate_average + rate) / total_interactions;
+
+      await knex("movies")
+        .update({ rate_average, total_interactions })
+        .where({ id: movie_id });
 
       const [{ id }] = await knex("interactions")
         .insert({
@@ -53,7 +61,15 @@ module.exports = {
   async update(req, res, next) {
     try {
       const { id } = req.params;
-      const { rate, user_id, movie_id } = req.body;
+      const { rate, current_rate, user_id, movie_id } = req.body;
+
+      const [movie] = await knex("movies").where({ id: movie_id });
+      const reset_average =
+        movie?.rate_average * movie?.total_interactions - current_rate;
+      const rate_average = (reset_average + rate) / movie?.total_interactions;
+
+      await knex("movies").update({ rate_average }).where({ id: movie_id });
+
       await knex("interactions")
         .update({
           rate,

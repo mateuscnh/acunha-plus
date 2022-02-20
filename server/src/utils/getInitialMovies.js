@@ -37,6 +37,8 @@ exports.getInitialMovies = async () => {
             release_date,
             main_genre: genre_ids[0],
             genre_ids: JSON.stringify(genre_ids),
+            rate_average: 0,
+            total_interactions: 0,
           })
         )
       );

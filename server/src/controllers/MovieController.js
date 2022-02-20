@@ -2,7 +2,7 @@ const knex = require("../database");
 module.exports = {
   async moviesByGenre(req, res, next) {
     try {
-      const movies = await knex("movies");
+      const movies = await knex("movies").orderBy("id");
       const genres = await knex("genres");
       return res.json({
         mostPopularMovies: movies.slice(0, 5),
@@ -24,13 +24,6 @@ module.exports = {
       const { id } = req.params;
       const { user_id } = req.query;
       const movie = await knex("movies").where({ id });
-      const alInteractionsWithThisMovie = await knex("interactions").where({
-        movie_id: id,
-      });
-      const rate_average =
-        alInteractionsWithThisMovie?.reduce((sum, interaction) => {
-          return sum + interaction.rate;
-        }, 0) / alInteractionsWithThisMovie?.length;
 
       const [user_interactions] = await knex("interactions as i")
         .select()
@@ -39,23 +32,11 @@ module.exports = {
       return res.json({
         user_interactions,
         ...movie?.[0],
-        rate_average: Number(rate_average.toFixed(1)),
       });
     } catch (error) {
       next(error);
     }
   },
-  // async movieByTitle(req, res, next) {
-  //   try {
-  //     const { title } = req.query;
-  //     console.log(title);
-  //     const movie = await knex("movies").where("title", "ilike", title);
-
-  //     return res.json(movie);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // },
   async create(req, res, next) {
     try {
       const {
@@ -64,7 +45,7 @@ module.exports = {
         backdrop_path,
         poster_path,
         release_date,
-        vote_average,
+        rate_average,
         genre_ids,
       } = req.body;
 
@@ -74,7 +55,7 @@ module.exports = {
         backdrop_path,
         poster_path,
         release_date,
-        vote_average,
+        rate_average,
         genre_ids: JSON.stringify(genre_ids),
       });
       return res.status(201).send();
@@ -91,7 +72,7 @@ module.exports = {
         backdrop_path,
         poster_path,
         release_date,
-        vote_average,
+        rate_average,
         genre_ids,
       } = req.body;
       await knex("movies")
@@ -101,7 +82,7 @@ module.exports = {
           backdrop_path,
           poster_path,
           release_date,
-          vote_average,
+          rate_average,
           genre_ids,
         })
         .where({ id });
