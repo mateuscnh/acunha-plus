@@ -28,7 +28,6 @@ exports.getInitialMovies = async () => {
             backdrop_path,
             poster_path,
             release_date,
-            vote_average,
             genre_ids,
           }) => ({
             title,
@@ -36,7 +35,6 @@ exports.getInitialMovies = async () => {
             backdrop_path,
             poster_path,
             release_date,
-            vote_average,
             main_genre: genre_ids[0],
             genre_ids: JSON.stringify(genre_ids),
           })

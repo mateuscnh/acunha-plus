@@ -3,17 +3,24 @@ const knex = require("../database");
 module.exports = {
   async index(req, res, next) {
     try {
+      const results = await knex("interactions");
+      return res.json(results);
+    } catch (error) {
+      next(error);
+    }
+  },
+  async indexByUser(req, res, next) {
+    try {
       const { user_id } = req.params;
       const results = await knex("interactions as i")
         .where({ user_id })
         .join("movies as m", "m.id", "i.movie_id")
-        .select("m.*", "m.id as movie_id", "i.liked", "i.id", "i.rate");
+        .select("m.*", "m.id as movie_id", "i.id", "i.rate");
       return res.json(
         results?.map((result) => {
-          const { id, liked, rate, movie_id, ...movie } = result;
+          const { id, rate, movie_id, ...movie } = result;
           return {
             id,
-            liked,
             rate,
             user_id,
             movie_id,
@@ -27,11 +34,10 @@ module.exports = {
   },
   async create(req, res, next) {
     try {
-      const { liked, rate, user_id, movie_id } = req.body;
+      const { rate, user_id, movie_id } = req.body;
 
       const [{ id }] = await knex("interactions")
         .insert({
-          liked,
           rate,
           user_id,
           movie_id,
@@ -47,10 +53,9 @@ module.exports = {
   async update(req, res, next) {
     try {
       const { id } = req.params;
-      const { liked, rate, user_id, movie_id } = req.body;
+      const { rate, user_id, movie_id } = req.body;
       await knex("interactions")
         .update({
-          liked,
           rate,
           user_id,
           movie_id,

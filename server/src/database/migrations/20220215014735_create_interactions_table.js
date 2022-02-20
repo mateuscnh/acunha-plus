@@ -1,7 +1,6 @@
 exports.up = (knex) =>
   knex.schema.createTable("interactions", (table) => {
     table.increments("id");
-    table.boolean("liked");
     table.float("rate");
     table
       .integer("user_id")

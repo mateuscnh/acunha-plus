@@ -4,14 +4,17 @@ module.exports = {
     try {
       const movies = await knex("movies");
       const genres = await knex("genres");
-      return res.json(
-        genres.map((genre) => {
+      return res.json({
+        mostPopularMovies: movies.slice(0, 5),
+        moviesByGenres: genres.map((genre) => {
           return {
             ...genre,
-            movies: movies.filter((movie) => movie.main_genre === genre.id),
+            movies: movies
+              .slice(5)
+              .filter((movie) => movie.main_genre === genre.id),
           };
-        })
-      );
+        }),
+      });
     } catch (error) {
       next(error);
     }
@@ -20,7 +23,15 @@ module.exports = {
     try {
       const { id } = req.params;
       const { user_id } = req.query;
-      const movie = await knex("movies").select().where({ id });
+      const movie = await knex("movies").where({ id });
+      const alInteractionsWithThisMovie = await knex("interactions").where({
+        movie_id: id,
+      });
+      const rate_average =
+        alInteractionsWithThisMovie?.reduce((sum, interaction) => {
+          return sum + interaction.rate;
+        }, 0) / alInteractionsWithThisMovie?.length;
+
       const [user_interactions] = await knex("interactions as i")
         .select()
         .where({ user_id, movie_id: id });
@@ -28,6 +39,7 @@ module.exports = {
       return res.json({
         user_interactions,
         ...movie?.[0],
+        rate_average: Number(rate_average.toFixed(1)),
       });
     } catch (error) {
       next(error);
