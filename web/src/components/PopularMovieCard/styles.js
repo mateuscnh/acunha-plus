@@ -33,32 +33,6 @@ export const Content = styled.div`
   }
 `;
 
-export const SubTitle = styled.div`
-  display: flex;
-  align-items: center;
-  opacity: 0.4;
-
-  > span {
-    margin-right: 24px;
-    display: flex;
-    align-items: center;
-
-    p {
-      font-size: 1.1rem;
-      margin-top: 0;
-      padding: 0;
-    }
-
-    svg {
-      margin-right: 8px;
-    }
-
-    .star {
-      transform: scale(1.1);
-    }
-  }
-`;
-
 export const Mask = styled.div`
   position: absolute;
   left: 24%;

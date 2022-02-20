@@ -73,6 +73,7 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
     (rate) => {
       handleMutate({
         ...user_interactions,
+        current_rate: user_interactions?.rate,
         rate,
       });
     },
@@ -101,7 +102,12 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
           <h1>{data?.title}</h1>
           <S.SubTitle>
             {!!data?.rate_average && (
-              <Tooltip title="Média de avaliações">
+              <Tooltip
+                title={`Média de avaliações${
+                  data?.total_interactions > 1 &&
+                  `, baseado em ${data?.total_interactions} usuários`
+                }`}
+              >
                 <p>
                   <StarOutlined className="star" />
                 </p>
