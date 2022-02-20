@@ -53,6 +53,10 @@ export const Content = styled.div`
     font-size: 1rem;
     font-weight: 400;
   }
+  .movie-details-rate {
+    display: block;
+    text-align: center;
+  }
   .ant-divider {
     opacity: 0.4;
     background: ${(props) => props.theme.colors.white};
@@ -82,13 +86,5 @@ export const SubTitle = styled.div`
     .star {
       transform: scale(1.1);
     }
-  }
-`;
-
-export const Footer = styled.footer`
-  text-align: center;
-  p {
-    font-size: 0.9rem;
-    margin: 0;
   }
 `;

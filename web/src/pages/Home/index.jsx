@@ -6,6 +6,7 @@ import MoviesCarousel from "@src/components/MoviesCarousel/index";
 import * as S from "./styles";
 import MovieDetails from "@src/components/MovieDetails/index";
 import { SessionContext } from "@src/store/SessionProvider";
+import PopularMoviesCarousel from "@src/components/PopularMoviesCarousel/index";
 
 const Home = () => {
   const { setSelectedMovieId, isShowMovieDetails, setIsShowMovieDetails } =
@@ -33,7 +34,7 @@ const Home = () => {
 
   return (
     <S.Container>
-      <MoviesCarousel
+      <PopularMoviesCarousel
         key="most-popular-movies"
         data={{ name: "Popular", movies: data?.mostPopularMovies }}
       />

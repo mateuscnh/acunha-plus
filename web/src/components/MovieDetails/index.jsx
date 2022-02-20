@@ -9,7 +9,7 @@ import { formatDate } from "@src/utils/formatDate";
 import useSwr from "@src/hooks/userSwr";
 import api from "@src/services/api";
 
-const IMG_BASE_URL = process.env.REACT_APP_IMG_URL;
+const IMG_BASE_URL = process.env.REACT_APP_IMG_URL_500;
 const MovieDetails = ({ isModalVisible, handleCancel }) => {
   const { userLogged, selectedMovieId } = useContext(SessionContext);
 
@@ -109,7 +109,7 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
               </Tooltip>
             )}
             {!!data?.release_date && (
-              <Tooltip title="Data de lançamento" overlayClassName="mateus">
+              <Tooltip title="Data de lançamento">
                 <p>
                   <CalendarOutlined />
                 </p>
@@ -121,6 +121,7 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
           <Divider />
           <RateButton
             setRate={handleRateMovie}
+            className="movie-details-rate"
             rate={user_interactions?.rate}
           />
         </Skeleton>

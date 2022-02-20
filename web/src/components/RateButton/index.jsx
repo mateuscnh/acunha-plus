@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { Tooltip, Rate } from "antd";
 import * as S from "./styles";
 
-const RateButton = ({ setRate, rate, disabled }) => {
+const RateButton = ({ setRate, rate, disabled, ...props }) => {
   const [hoverRate, setHoverRate] = useState();
   return (
     <Tooltip title={hoverRate}>
-      <S.Container disabled={disabled}>
+      <S.Container disabled={disabled} {...props}>
         <Rate
           value={rate ?? 0}
           onChange={setRate}

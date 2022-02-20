@@ -5,7 +5,7 @@ import { Tooltip } from "antd";
 import * as S from "./styles";
 import { SessionContext } from "@src/store/SessionProvider";
 
-const IMG_BASE_URL = process.env.REACT_APP_IMG_URL;
+const IMG_BASE_URL = process.env.REACT_APP_IMG_URL_500;
 const MovieCard = ({ movie, ...props }) => {
   const { setSelectedMovieId, selectedMovieId, setIsShowMovieDetails } =
     useContext(SessionContext);
