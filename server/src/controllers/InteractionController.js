@@ -38,7 +38,9 @@ module.exports = {
 
       const [movie] = await knex("movies").where({ id: movie_id });
       const total_interactions = movie?.total_interactions + 1;
-      const rate_average = (movie?.rate_average + rate) / total_interactions;
+      const rate_average = Number(
+        ((movie?.rate_average + rate) / total_interactions).toFixed(1)
+      );
 
       await knex("movies")
         .update({ rate_average, total_interactions })
@@ -66,7 +68,9 @@ module.exports = {
       const [movie] = await knex("movies").where({ id: movie_id });
       const reset_average =
         movie?.rate_average * movie?.total_interactions - current_rate;
-      const rate_average = (reset_average + rate) / movie?.total_interactions;
+      const rate_average = Number(
+        ((reset_average + rate) / movie?.total_interactions).toFixed(1)
+      );
 
       await knex("movies").update({ rate_average }).where({ id: movie_id });
 

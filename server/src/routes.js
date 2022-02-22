@@ -5,6 +5,7 @@ const UserController = require("./controllers/UserController");
 const MovieController = require("./controllers/MovieController");
 const GenresController = require("./controllers/GenresController");
 const InteractionController = require("./controllers/InteractionController");
+const RecommendationsController = require("./controllers/RecommendationsController");
 
 routes
   // users
@@ -25,6 +26,9 @@ routes
   .get("/interactions/:user_id", InteractionController.indexByUser)
   .post("/interactions", InteractionController.create)
   .put("/interactions/:id", InteractionController.update)
-  .delete("/interactions/:id", InteractionController.delete);
+  .delete("/interactions/:id", InteractionController.delete)
+  // recommendations
+  .get("/recommendations/by-users", RecommendationsController.indexByUsers)
+  .get("/recommendations/by-items", RecommendationsController.indexByItems);
 
 module.exports = routes;
