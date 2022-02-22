@@ -44,4 +44,9 @@ export default createGlobalStyle`
     .ant-tooltip-arrow-content, .ant-tooltip-inner {
         background: ${(props) => props.theme.colors.black};
     }
+    @media (max-width: 400px) {
+        .ant-tooltip {
+            display: none;
+        }
+    }
 `;

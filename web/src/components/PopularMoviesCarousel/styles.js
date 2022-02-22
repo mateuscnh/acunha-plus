@@ -16,4 +16,11 @@ export const Container = styled.div`
     border-color: ${({ theme }) => theme.colors.primary};
     transform: scale(1.01) translateY(6px);
   }
+
+  @media (max-width: 400px) {
+    margin: 0;
+    width: 100%;
+    border: none;
+    border-radius: 0 0 12px 12px;
+  }
 `;

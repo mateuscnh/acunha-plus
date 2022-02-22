@@ -25,5 +25,8 @@ export const SectionHeader = styled.header`
     font-family: Montserrat;
     font-weight: 600;
     font-size: 1.2rem;
+    @media (max-width: 400px) {
+      font-size: 1rem;
+    }
   }
 `;

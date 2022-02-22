@@ -26,7 +26,7 @@ const MoviesCarousel = ({ data }) => {
 
   const handleRightArrowVisibility = useCallback((swiper) => {
     const totalMovies = swiper.slides.length;
-    const movieWidth = swiper.height / 1.3;
+    const movieWidth = swiper.height / 1.4;
     const carouselWidth = swiper.width;
 
     const visibleMovies = Number((carouselWidth / movieWidth).toFixed());

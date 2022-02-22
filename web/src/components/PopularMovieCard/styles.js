@@ -5,6 +5,10 @@ export const Container = styled.div`
   height: 400px;
   background: ${(props) => props.theme.colors.black_dark};
   text-align: right;
+  @media (max-width: 400px) {
+    text-align: center;
+    height: 220px;
+  }
 `;
 
 export const Content = styled.div`
@@ -31,6 +35,10 @@ export const Content = styled.div`
     padding: 0;
     opacity: 0.6;
   }
+
+  @media (max-width: 400px) {
+    display: none;
+  }
 `;
 
 export const Mask = styled.div`
@@ -39,6 +47,10 @@ export const Mask = styled.div`
   width: 100%;
   height: 400px;
   background: linear-gradient(90deg, #0f0e0c 19.75%, rgba(0, 0, 0, 0) 67.67%);
+
+  @media (max-width: 400px) {
+    display: none;
+  }
 `;
 
 export const Image = styled.img`

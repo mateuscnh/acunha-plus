@@ -4,7 +4,7 @@ import { Divider, Skeleton, Tooltip } from "antd";
 import { CalendarOutlined, StarOutlined } from "@ant-design/icons";
 import * as S from "./styles";
 import { SessionContext } from "@src/store/SessionProvider";
-import RateButton from "../RateButton/index";
+import RateButton from "../RateButton";
 import { formatDate } from "@src/utils/formatDate";
 import useSwr from "@src/hooks/userSwr";
 import api from "@src/services/api";
@@ -71,11 +71,13 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
 
   const handleRateMovie = useCallback(
     (rate) => {
-      handleMutate({
-        ...user_interactions,
-        current_rate: user_interactions?.rate,
-        rate,
-      });
+      if (rate > 0) {
+        handleMutate({
+          ...user_interactions,
+          current_rate: user_interactions?.rate,
+          rate,
+        });
+      }
     },
     [handleMutate, user_interactions]
   );

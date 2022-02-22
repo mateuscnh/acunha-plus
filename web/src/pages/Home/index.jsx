@@ -9,11 +9,22 @@ import { SessionContext } from "@src/store/SessionProvider";
 import PopularMoviesCarousel from "@src/components/PopularMoviesCarousel/index";
 
 const Home = () => {
-  const { setSelectedMovieId, isShowMovieDetails, setIsShowMovieDetails } =
-    useContext(SessionContext);
+  const {
+    setSelectedMovieId,
+    isShowMovieDetails,
+    setIsShowMovieDetails,
+    // userLogged,
+  } = useContext(SessionContext);
   const [isPageFullyLoaded, setIsPageFullyLoaded] = useState(false);
 
   const { data } = useSwr("/movies");
+  // const { data: recommendationsByUsers } = useSwr(
+  //   `/recommendations/by-users?user_id=${userLogged?.id}`
+  // );
+
+  // const { data: recommendationsByItems } = useSwr(
+  //   `/recommendations/by-items?user_id=${userLogged?.id}`
+  // );
 
   const handleCloseModal = useCallback(() => {
     setSelectedMovieId(undefined);
@@ -38,6 +49,20 @@ const Home = () => {
         key="most-popular-movies"
         data={{ name: "Popular", movies: data?.mostPopularMovies }}
       />
+      {/* <MoviesCarousel
+        key="Recomendados"
+        data={{
+          name: "Recomendados para você",
+          movies: recommendationsByUsers,
+        }}
+      />
+      <MoviesCarousel
+        key="Baseado em filmes que você assistiu"
+        data={{
+          name: "Baseado em filmes que você assistiu",
+          movies: recommendationsByItems,
+        }}
+      /> */}
       {data?.moviesByGenres
         ?.filter((genre) => genre.movies?.length > 6)
         .map(
