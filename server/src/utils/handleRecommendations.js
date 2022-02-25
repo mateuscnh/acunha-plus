@@ -20,19 +20,20 @@ const interactionsGroupedByUser = (data) =>
       });
     }
     return oldInteractions;
+    // [
+    // 	{
+    // 		"id": 1,
+    // 		"name": "Mateus",
+    // 		"interactions": [
+    // 			{
+    // 				"rate": 5,
+    // 				"movie_id": 1
+    // 			},
+    //     ]
+    //   },
+    // ]
   }, []);
-// [
-// 	{
-// 		"id": 1,
-// 		"name": "Mateus",
-// 		"interactions": [
-// 			{
-// 				"rate": 5,
-// 				"movie_id": 1
-// 			},
-//     ]
-//   },
-// ]
+
 const pearson = (x, y) => {
   const n = x.length;
   const idx = Array.from({ length: n }, (x, i) => i);

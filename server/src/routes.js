@@ -28,7 +28,16 @@ routes
   .put("/interactions/:id", InteractionController.update)
   .delete("/interactions/:id", InteractionController.delete)
   // recommendations
-  .get("/recommendations/by-users", RecommendationsController.indexByUsers)
-  .get("/recommendations/by-items", RecommendationsController.indexByItems);
+  .get("/recommendations", RecommendationsController.index)
+  .get(
+    "/recommendations/interactions",
+    RecommendationsController.indexInteractions
+  )
+  .get(
+    "/recommendations/interactions/:user_id",
+    RecommendationsController.indexInteractionsByUser
+  )
+  .post("/recommendations/interactions", RecommendationsController.create)
+  .put("/recommendations/interactions/:id", RecommendationsController.update);
 
 module.exports = routes;
