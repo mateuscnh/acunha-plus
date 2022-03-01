@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   position: absolute;
+  z-index: 2;
   padding: 34px;
   top: 50%;
   transform: translateY(-50%);
@@ -36,21 +37,40 @@ export const Content = styled.div`
     opacity: 0.6;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 960px) {
+    h1 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-top: 0;
+      padding: 0;
+      opacity: 0.6;
+    }
+  }
+
+  @media (max-width: 720px) {
     display: none;
   }
 `;
 
+export const ImageContent = styled.div`
+  display: inline-flex;
+  z-index: 0;
+  position: relative;
+  height: 100%;
+  background: red;
+`;
+
 export const Mask = styled.div`
   position: absolute;
-  left: 24%;
+  z-index: 1;
+  left: -2px;
   width: 100%;
   height: 400px;
-  background: linear-gradient(90deg, #0f0e0c 19.75%, rgba(0, 0, 0, 0) 67.67%);
-
-  @media (max-width: 400px) {
-    display: none;
-  }
+  background: linear-gradient(90deg, #0f0e0c 8%, rgba(0, 0, 0, 0) 90%);
 `;
 
 export const Image = styled.img`

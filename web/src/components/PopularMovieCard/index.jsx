@@ -15,15 +15,17 @@ const PopularMovieCard = ({ movie, ...props }) => {
 
   return (
     <S.Container onClick={handleMovieClicked}>
-      <S.Mask />
       <S.Content>
         <h1>{movie?.title}</h1>
         <p>{movie?.overview}</p>
       </S.Content>
-      <S.Image
-        alt={movie?.title}
-        src={!!movie?.poster_path && `${IMG_BASE_URL}${movie?.backdrop_path}`}
-      />
+      <S.ImageContent>
+        <S.Mask />
+        <S.Image
+          alt={movie?.title}
+          src={!!movie?.poster_path && `${IMG_BASE_URL}${movie?.backdrop_path}`}
+        />
+      </S.ImageContent>
     </S.Container>
   );
 };

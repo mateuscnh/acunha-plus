@@ -17,4 +17,7 @@ export const Image = styled.img`
     border-color: ${({ theme }) => theme.colors.primary};
     transform: scale(1.01) translateY(6px);
   }
+
+  filter: ${({ disabled }) => disabled && "grayscale(100%)"};
+  opacity: ${({ disabled }) => disabled && 0.3};
 `;

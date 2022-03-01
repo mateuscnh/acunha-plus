@@ -3,6 +3,10 @@ import styled, { css } from "styled-components";
 import { Button as AntButton } from "antd";
 
 export const Container = styled.div`
+  text-align: center;
+`;
+
+export const Content = styled.div`
   display: inline-flex;
   background: #232221;
   border-radius: 50px;

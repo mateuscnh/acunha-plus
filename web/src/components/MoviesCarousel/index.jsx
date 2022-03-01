@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useContext, useMemo, useRef } from "react";
 import { Navigation, A11y } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,10 +12,12 @@ import "swiper/css/navigation";
 import "swiper/less/free-mode";
 
 import Chevron from "./Chevron/index";
+import { SessionContext } from "@src/store/SessionProvider";
 
 const MoviesCarousel = ({ data }) => {
   const elNavLeft = useRef(null);
   const elNavRight = useRef(null);
+  const { allInteractions } = useContext(SessionContext);
 
   const handleLeftArrowVisibility = useCallback((swiper) => {
     const isInitialMovie = swiper.realIndex === 0;
@@ -76,7 +78,7 @@ const MoviesCarousel = ({ data }) => {
       <Swiper {...swiperSettings}>
         {data?.movies?.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} allInteractions={allInteractions} />
           </SwiperSlide>
         ))}
         <Chevron ref={elNavLeft} direction="left" />

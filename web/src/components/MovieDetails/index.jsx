@@ -8,10 +8,17 @@ import RateButton from "../RateButton";
 import { formatDate } from "@src/utils/formatDate";
 import useSwr from "@src/hooks/userSwr";
 import api from "@src/services/api";
+import LikeButton from "../LikeButton/index";
 
 const IMG_BASE_URL = process.env.REACT_APP_IMG_URL_500;
-const MovieDetails = ({ isModalVisible, handleCancel }) => {
-  const { userLogged, selectedMovieId } = useContext(SessionContext);
+const MovieDetails = ({ handleCancel, mutateMovieCard }) => {
+  const {
+    userLogged,
+    selectedMovieId,
+    setCountInteractions,
+    setCountRecommendationsInteractions,
+    isShowMovieDetails,
+  } = useContext(SessionContext);
 
   const { data, mutate } = useSwr(
     selectedMovieId
@@ -28,12 +35,27 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
     []
   );
 
+  const postRecommendationsInteraction = useCallback(
+    (payload) => api.post("/recommendations/interactions", payload),
+    []
+  );
+  const putRecommendationsInteraction = useCallback(
+    (payload) =>
+      api.put(`/recommendations/interactions/${payload?.id}`, payload),
+    []
+  );
+
   const user_interactions = useMemo(
     () => data?.user_interactions,
     [data?.user_interactions]
   );
 
-  const handleMutate = useCallback(
+  const user_recommendations_interactions = useMemo(
+    () => data?.user_recommendations_interactions,
+    [data?.user_recommendations_interactions]
+  );
+
+  const handleMutateRate = useCallback(
     async (newInteraction) => {
       const payload = {
         ...newInteraction,
@@ -57,6 +79,7 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
           ...data,
           user_interactions: { ...payload, id },
         });
+        setCountInteractions((oldCount) => oldCount + 1);
       }
     },
     [
@@ -66,25 +89,73 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
       postInteraction,
       putInteraction,
       userLogged?.id,
+      setCountInteractions,
+    ]
+  );
+
+  const handleMutateLike = useCallback(
+    async (newInteraction) => {
+      const payload = {
+        ...newInteraction,
+        user_id: userLogged.id,
+        movie_id: selectedMovieId,
+      };
+
+      const hasId = !!payload?.id;
+
+      if (hasId) {
+        await putRecommendationsInteraction(payload);
+        mutate({
+          ...data,
+          user_recommendations_interactions: payload,
+        });
+      } else {
+        const {
+          data: { id },
+        } = await postRecommendationsInteraction(payload);
+        mutate({
+          ...data,
+          user_recommendations_interactions: { ...payload, id },
+        });
+        setCountRecommendationsInteractions((oldCount) => oldCount + 1);
+      }
+    },
+    [
+      data,
+      mutate,
+      postRecommendationsInteraction,
+      putRecommendationsInteraction,
+      selectedMovieId,
+      setCountRecommendationsInteractions,
+      userLogged?.id,
     ]
   );
 
   const handleRateMovie = useCallback(
     (rate) => {
       if (rate > 0) {
-        handleMutate({
+        handleMutateRate({
           ...user_interactions,
-          current_rate: user_interactions?.rate,
           rate,
         });
       }
     },
-    [handleMutate, user_interactions]
+    [handleMutateRate, user_interactions]
+  );
+
+  const handleLikeMovie = useCallback(
+    (liked) => {
+      handleMutateLike({
+        ...user_recommendations_interactions,
+        liked,
+      });
+    },
+    [handleMutateLike, user_recommendations_interactions]
   );
 
   return (
     <S.Modal
-      visible={isModalVisible}
+      visible={isShowMovieDetails}
       onCancel={handleCancel}
       loading={!data}
       footer={false}
@@ -126,12 +197,20 @@ const MovieDetails = ({ isModalVisible, handleCancel }) => {
             )}
           </S.SubTitle>
           <p>{data?.overview}</p>
+
           <Divider />
-          <RateButton
-            setRate={handleRateMovie}
-            className="movie-details-rate"
-            rate={user_interactions?.rate}
-          />
+          {userLogged?.isRecommendation ? (
+            <LikeButton
+              handleLike={handleLikeMovie}
+              liked={user_recommendations_interactions?.liked}
+            />
+          ) : (
+            <RateButton
+              handleRate={handleRateMovie}
+              className="movie-details-rate"
+              rate={user_interactions?.rate}
+            />
+          )}
         </Skeleton>
       </S.Content>
     </S.Modal>

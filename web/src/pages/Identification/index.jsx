@@ -9,6 +9,7 @@ import api from "@services/api";
 
 import * as S from "./styles";
 import { SessionContext } from "@src/store/SessionProvider";
+import FooterTMBD from "@src/components/FooterTMBD/index";
 
 const Identification = () => {
   const { setUserLogged } = useContext(SessionContext);
@@ -35,14 +36,10 @@ const Identification = () => {
       <S.Mask />
       <S.Container className="container">
         <S.Content>
-          <Logo height="5rem" />
+          <Logo width="80%" />
           <p>
-            Você participará de uma pesquisa, para o TCC, relacionado a sistemas
-            de recomendações em plataformas de streamming de vídeos. Só será
-            necessário clicar no card de um filme, que você já assistiu e
-            informar se gostou ou não dele e no final verificar se as
-            recomendações de filmes que o sistema lhe recomendará foi
-            satisfatória.
+            Avalie os filmes que você já assistiu e veja quais o sistema lhe
+            recomendará.
           </p>
           <Card style={{ maxWidth: 480, margin: "0 auto" }}>
             <S.Title>Sobre você</S.Title>
@@ -70,6 +67,7 @@ const Identification = () => {
           </Card>
         </S.Content>
       </S.Container>
+      <FooterTMBD />
     </S.Background>
   );
 };

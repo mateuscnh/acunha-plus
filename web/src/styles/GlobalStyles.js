@@ -30,8 +30,9 @@ export default createGlobalStyle`
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: auto;
+        margin: 0 auto;
         max-width: 1300px;
+        width: 100%;
     }
 
     p, h1 {
@@ -44,9 +45,43 @@ export default createGlobalStyle`
     .ant-tooltip-arrow-content, .ant-tooltip-inner {
         background: ${(props) => props.theme.colors.black};
     }
+
     @media (max-width: 400px) {
         .ant-tooltip {
             display: none;
+        }
+    }
+
+    .ant-progress-bg{
+        background: ${(props) => props.theme.colors.primary};
+    }
+
+    .ant-notification {
+        border: 1px solid ${(props) => props.theme.colors.black_light};
+        background: ${(props) => props.theme.colors.black_dark};
+        border-radius: 8px;
+
+        .ant-notification-notice-message{
+            color: ${(props) => props.theme.colors.primary};
+            font-weight: bold;
+        }
+
+        .ant-notification-notice-description{
+            opacity: 0.6;
+            p {
+                font-size: 0.8rem;
+            }
+
+            span {
+                opacity: 1;
+                font-weight: bold;
+                color: ${(props) => props.theme.colors.primary}; 
+            }
+        }
+        
+        div, svg{
+            color: ${(props) => props.theme.colors.white};
+            background: transparent;
         }
     }
 `;

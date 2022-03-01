@@ -17,7 +17,7 @@ export const Container = styled.div`
     transform: scale(1.01) translateY(6px);
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 1000px) {
     margin: 0;
     width: 100%;
     border: none;

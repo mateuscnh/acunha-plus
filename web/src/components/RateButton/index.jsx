@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Tooltip, Rate } from "antd";
+import { Rate } from "antd";
 import * as S from "./styles";
 
-const RateButton = ({ setRate, rate, disabled, ...props }) => {
-  const [hoverRate, setHoverRate] = useState();
+const RateButton = ({ handleRate, rate, disabled, ...props }) => {
+  const [temporaryRate, setTemporaryRate] = useState();
+
+  useEffect(() => {
+    if (rate) {
+      setTemporaryRate(rate);
+    }
+  }, [rate]);
+
   return (
-    <Tooltip title={hoverRate}>
-      <S.Container disabled={disabled} {...props}>
-        <Rate
-          value={rate ?? 0}
-          onChange={setRate}
-          disabled={disabled}
-          onHoverChange={setHoverRate}
-        />
-      </S.Container>
-    </Tooltip>
+    <S.Container disabled={disabled} {...props}>
+      <Rate
+        value={temporaryRate ?? 0}
+        onChange={(value) => {
+          handleRate(value);
+          setTemporaryRate(value);
+        }}
+        disabled={disabled}
+      />
+    </S.Container>
   );
 };
 

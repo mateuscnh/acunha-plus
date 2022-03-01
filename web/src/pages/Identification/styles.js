@@ -1,10 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import background from "../../assets/images/background.png";
+
+const finished = keyframes`
+  to {
+    opacity: 1
+  }
+`;
 
 export const Background = styled.div`
   position: relative;
   background: no-repeat center url(${background});
   background-size: cover;
+  opacity: 0;
+  animation: ${finished} 0.3s forwards;
 `;
 
 export const Mask = styled.div`
@@ -24,15 +32,14 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  margin: 0 auto;
+  padding: 0 4%;
 
   > p {
-    font-size: 0.9rem;
-    margin: 24px 0;
-    margin-bottom: 40px;
-    text-align: left;
-    max-width: 860px;
-    width: 100%;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    max-width: 540px;
+    width: 80%;
     font-weight: normal;
   }
 `;

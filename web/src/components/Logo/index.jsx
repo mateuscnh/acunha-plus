@@ -5,6 +5,7 @@ import { ReactComponent as AcunhaLogo } from "@assets/icons/logo.svg";
 
 const Container = styled.div`
   padding: 8px;
+
   > svg {
     width: ${({ width }) => width};
     height: ${({ height }) => height};

@@ -1,31 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Tooltip } from "antd";
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import * as S from "./styles";
 
-const LikeButton = ({ onChange, ...props }) => {
-  const [like, setLike] = useState();
-
-  return (
-    <S.Container>
+const LikeButton = ({ handleLike, liked, ...props }) => (
+  <S.Container {...props}>
+    <S.Content>
       <Tooltip title="Curti">
         <S.Button
-          like={like}
+          like={liked}
           icon={<LikeOutlined />}
-          onClick={() => setLike(true)}
+          onClick={() => handleLike(true)}
         />
       </Tooltip>
       <span />
       <Tooltip title="Não curti">
         <S.Button
-          like={like === false}
+          like={liked === false}
           icon={<DislikeOutlined />}
-          onClick={() => setLike(false)}
+          onClick={() => handleLike(false)}
         />
       </Tooltip>
-    </S.Container>
-  );
-};
+    </S.Content>
+  </S.Container>
+);
 
 export default LikeButton;
