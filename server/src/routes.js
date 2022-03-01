@@ -14,8 +14,10 @@ routes
   // movies
   .get("/movies", MovieController.moviesByGenre)
   .get("/movies/:id", MovieController.movieById)
+  .post("/movies", MovieController.create)
   // genres
   .get("/genres", GenresController.index)
+  .post("/genres", GenresController.create)
   // interactions
   .get("/interactions", InteractionController.index)
   .get("/interactions/:user_id", InteractionController.indexByUser)

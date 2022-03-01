@@ -1,4 +1,5 @@
 const knex = require("../database");
+const { evaluationAverage } = require("../utils/evaluationAverage");
 
 module.exports = {
   async index(req, res, next) {
@@ -36,16 +37,6 @@ module.exports = {
     try {
       const { rate, user_id, movie_id } = req.body;
 
-      const [movie] = await knex("movies").where({ id: movie_id });
-      const total_interactions = movie?.total_interactions + 1;
-      const rate_average = Number(
-        ((movie?.rate_average + rate) / total_interactions).toFixed(1)
-      );
-
-      await knex("movies")
-        .update({ rate_average, total_interactions })
-        .where({ id: movie_id });
-
       const [{ id }] = await knex("interactions")
         .insert({
           rate,
@@ -53,6 +44,15 @@ module.exports = {
           movie_id,
         })
         .returning("id");
+
+      const allInteractionsByMovie = await knex("interactions").where({
+        movie_id,
+      });
+
+      const rate_average = evaluationAverage(allInteractionsByMovie);
+
+      await knex("movies").update({ rate_average }).where({ id: movie_id });
+
       return res.status(201).send({
         id,
       });
@@ -63,16 +63,7 @@ module.exports = {
   async update(req, res, next) {
     try {
       const { id } = req.params;
-      const { rate, current_rate, user_id, movie_id } = req.body;
-
-      const [movie] = await knex("movies").where({ id: movie_id });
-      const reset_average =
-        movie?.rate_average * movie?.total_interactions - current_rate;
-      const rate_average = Number(
-        ((reset_average + rate) / movie?.total_interactions).toFixed(1)
-      );
-
-      await knex("movies").update({ rate_average }).where({ id: movie_id });
+      const { rate, user_id, movie_id } = req.body;
 
       await knex("interactions")
         .update({
@@ -81,6 +72,15 @@ module.exports = {
           movie_id,
         })
         .where({ id });
+
+      const allInteractionsByMovie = await knex("interactions").where({
+        movie_id,
+      });
+
+      const rate_average = evaluationAverage(allInteractionsByMovie);
+
+      await knex("movies").update({ rate_average }).where({ id: movie_id });
+
       return res.send();
     } catch (error) {
       next(error);

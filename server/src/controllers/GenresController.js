@@ -9,4 +9,12 @@ module.exports = {
       next(error);
     }
   },
+  async create(req, res, next) {
+    try {
+      await knex("genres").insert(req.body);
+      return res.status(201).send();
+    } catch (error) {
+      next(error);
+    }
+  },
 };

@@ -44,4 +44,12 @@ module.exports = {
       next(error);
     }
   },
+  async create(req, res, next) {
+    try {
+      await knex("movies").insert(req.body);
+      return res.status(201).send();
+    } catch (error) {
+      next(error);
+    }
+  },
 };

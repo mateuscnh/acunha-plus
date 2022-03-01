@@ -62,7 +62,7 @@ module.exports = {
         ),
       ];
 
-      const allMovies = await knex("movies")
+      const allMovies = await knex("movies as m")
         .whereIn("id", allItemsIds)
         .then((data) => {
           data.sort((a, b) => {
@@ -100,7 +100,7 @@ module.exports = {
       const results = await knex("recommendations_interactions as i")
         .where({ user_id })
         .join("movies as m", "m.id", "i.movie_id")
-        .select("m.*", "m.id as movie_id", "i.id", "i.liked");
+        .select("m.*", "i.id", "i.liked");
       return res.json(
         results?.map((result) => {
           const { id, movie_id, liked, ...movie } = result;
